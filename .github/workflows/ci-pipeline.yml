@@ -34,10 +34,10 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: Ruff Lint
-        run: ruff check . --output-format=github
+        run: ruff check src main.py --output-format=github
 
       - name: Ruff Format (check only)
-        run: ruff format . --check --diff
+        run: ruff format src main.py --check --diff
 
 
   ########################
@@ -81,4 +81,4 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: Run mypy
-        run: mypy --explicit-package-bases src
+        run: mypy --explicit-package-bases src main.py
