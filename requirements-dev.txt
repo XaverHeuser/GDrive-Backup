@@ -1,4 +1,4 @@
-bandit==1.8.6
+bandit==1.9.2
 ipykernel==7.1.0
 mypy==1.19.1
 pip-audit==2.9.0
