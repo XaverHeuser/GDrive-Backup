@@ -73,6 +73,19 @@ To set up an automated schedule:
 
 2. Create a **Cloud Scheduler** job to trigger the Cloud Run service endpoint (e.g., every night at 3 AM).
 
+### Enhancement
+
+Load data from Google Cloud Storage to local PC:
+
+1. Open Google Cloud SDK Shell
+2. Navigate to the target folder
+3. Enter the following command:
+   ```bash
+   gsutil -m cp -r "gsutil://gdrive-backup-2026/backup_{date}"
+   ```
+   date = YYYY-MM-DD_HH-mm
+   
+
 ### 📂 Project Structure
 
 - src/: Source code modules.
