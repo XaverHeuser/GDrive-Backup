@@ -81,7 +81,7 @@ Load data from Google Cloud Storage to local PC:
 2. Navigate to the target folder
 3. Enter the following command:
    ```bash
-   gsutil -m cp -r "gsutil://gdrive-backup-2026/backup_{date}"
+   gsutil -m cp -r "gs://gdrive-backup-2026/backup_{date}" .
    ```
    date = YYYY-MM-DD_HH-mm
    
