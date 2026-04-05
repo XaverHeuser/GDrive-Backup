@@ -80,11 +80,12 @@ Load data from Google Cloud Storage to local PC:
 1. Open Google Cloud SDK Shell
 2. Navigate to the target folder
 3. Enter the following command:
+
    ```bash
    gsutil -m cp -r "gs://gdrive-backup-2026/backup_{date}" .
    ```
+
    date = YYYY-MM-DD_HH-mm
-   
 
 ### 📂 Project Structure
 
