@@ -51,7 +51,8 @@ class DriveBackupService:
             # Query items in folder
             query = f"'{folder_id}' in parents and trashed = false"
             results = (
-                self.service.files()
+                self.service
+                .files()
                 .list(
                     q=query,
                     fields='nextPageToken, files(id, name, mimeType)',
