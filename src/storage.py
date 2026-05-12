@@ -15,12 +15,16 @@ class StorageClient:
         blob = self.bucket.blob(blob_path)
         return bool(blob.exists())
 
-    def upload_stream(
-        self, stream: io.BytesIO, blob_path: str, content_type: str | None = None
+    def upload_from_handle(
+        self, file_handle: io.IOBase, blob_path: str, content_type: str | None = None
     ) -> None:
-        """Uploads a memory stream to GCS."""
+        """Uploads from a file handle with restricted memory buffering."""
         blob = self.bucket.blob(blob_path)
-        # Rewind stream to beginning before reading
-        stream.seek(0)
-        blob.upload_from_file(stream, content_type=content_type)
+
+        # Configure chunk size (e.g., 32MB) to prevent large memory buffers during upload
+        blob.chunk_size = 32 * 1024 * 1024
+
+        file_handle.seek(0)
+        blob.upload_from_file(file_handle, content_type=content_type)
+
         print(f'Uploaded: {blob_path}')
