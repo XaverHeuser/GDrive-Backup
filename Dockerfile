@@ -2,9 +2,12 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# Upgrade pip
+RUN python -m pip install --no-cache-dir --upgrade pip==26.1
+
 # Install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt --upgrade "pip>=26.1"
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
 # Copy src folder
 COPY src/ ./src/
