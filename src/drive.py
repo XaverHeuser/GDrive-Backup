@@ -1,6 +1,7 @@
 """Handles the recursion logic and data fetching."""
 
-import io
+import gc
+import tempfile
 from typing import TypedDict
 
 import google.auth
@@ -40,6 +41,7 @@ class DriveBackupService:
         )
         self.service = build('drive', 'v3', credentials=creds, cache_discovery=False)
         self.storage = storage_service
+        self.files_processed = 0
 
     def backup_recursive(self, folder_id: str, current_path: str) -> None:
         """Recursively scans folders and triggers backup for files."""
@@ -95,11 +97,9 @@ class DriveBackupService:
             # If it is a google-format -> Append ending
             target_path = full_path + export_config['ext']
             target_mime = export_config['mime']
-            print(f'Convert to Office-format  ({export_config["ext"]}): {name}')
             request = self.service.files().export_media(
                 fileId=file_id, mimeType=target_mime
             )
-            # is_conversion = True
         else:
             if mime.startswith('application/vnd.google-apps'):
                 print('Skipping unsupported Google type: %s (%s)', name, mime)
@@ -108,29 +108,36 @@ class DriveBackupService:
             # If it is a regular format -> No changes
             target_path = full_path
             target_mime = mime
-
-            print(f'Download: {name}')
             request = self.service.files().get_media(fileId=file_id)
-            # is_conversion = False
 
         # Check if file already in bucket
         if self.storage.file_exists(target_path):
             print(f'Skip (File already exists): {target_path}')
             return
 
-        # Prepare buffer
-        fh = io.BytesIO()
+        # Use SpooledTemporaryFile: Max 50MB in RAM, then writes to /tmp
+        with tempfile.SpooledTemporaryFile(max_size=50 * 1024 * 1024) as tmp_file:
+            try:
+                downloader = MediaIoBaseDownload(tmp_file, request)
+                done = False
+                while not done:
+                    _, done = downloader.next_chunk()
 
-        try:
-            # Execute Downloader
-            downloader = MediaIoBaseDownload(fh, request)
-            done = False
-            while not done:
-                _, done = downloader.next_chunk()
+                # Upload to GCS using the file handle
+                self.storage.upload_from_handle(
+                    tmp_file, target_path, content_type=target_mime
+                )
 
-            # Upload file in bucket
-            self.storage.upload_stream(fh, target_path, content_type=target_mime)
+                # Increment file counter after successful upload
+                self.files_processed += 1
 
-        except Exception:
-            print('Failed processing file: %s', name)
-            raise
+                # Only trigger GC every 20 files
+                if self.files_processed % 20 == 0:
+                    print(
+                        f'Triggering scheduled cleanup after {self.files_processed} files...'
+                    )
+                    gc.collect()
+
+            except Exception as e:
+                print(f'Failed processing file: {name} - {e}')
+                raise
