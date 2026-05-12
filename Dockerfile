@@ -3,7 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Upgrade pip
-RUN python -m pip install --no-cache-dir --upgrade pip==26.1
+RUN python -m pip install --no-cache-dir --upgrade "pip>=26.1"
 
 # Install dependencies
 COPY requirements.txt .
