@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt --upgrade "pip>=26.1"
 
 # Copy src folder
 COPY src/ ./src/
