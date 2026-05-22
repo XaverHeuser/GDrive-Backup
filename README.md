@@ -47,7 +47,7 @@ The application relies on environment variables. You can set these in a `.env` f
     pip install -r requirements.txt
     ```
 
-3. **Setup Google Cloud environment**s
+3. **Setup Google Cloud environment**
 
 4. **Run the Script**
 
@@ -56,6 +56,12 @@ The application relies on environment variables. You can set these in a `.env` f
     ```
 
 ## ☁️ Deployment
+
+### Infrastructure & Deployment Architecture
+
+The following diagram illustrates how the component services interact across the local CI/CD environment, Google Cloud Platform, and Google Workspace boundaries during an automated backup execution window:
+
+[![GDrive Backup Architecture Diagram](https://img.plantuml.biz/plantuml/svg/VLJlRzem4FsEbF_XngGDfD5AwxT-c0e9CBHsHOHEcZG9cUG87euTsGujc_g_xsm72lsnVFBPzvxlthtuobYcRLqA62UQRt4nODcchXPzdQsvnSpM6gFMExl64g4IZCkePJPSLaop4Z9LLagYjAdT2GHD-KmMWX1HYsLMQMWdk4MXAjHjO0OeScUPK7KExR5Ib0onZwQ2sPNIPHl-HYsWxq0ExP2HPclCQz5G7I9uVysBjHs86jy0pce9dKHb6qgEbRJK1UgkP_49xZoGZ3MYt1VmZAias5cryx0RByGhIKPdPvcIAru4UhzyCpDtal-I7IzzK3v5lUKPXkhyVhFp9eaXdLdXQDAmYWMdmy3GR9rmFBwGwMGGWvgB_4aS7nxaORi0pfbbIsOGsdrj-Og63JCikB4w2BGF_WCykJGzD36EKog1PjLquE90yXE5KFTHwz5Pw0LFqcYPgbfd22CbylsGWxKRbYcN6qVm4UB9UPp0o7EICQ6dUr-EUxw4kUP5WTh0qcziEGDlNH-UxLWfejOHe9SJmQ7pIvZMPeqqnU2yIKaDXfk73vZLbYlPtFxavTw-1EV9em9-goLqlixdKvZUflFpFQ0RjPmL0ynxZK0pPBc1eTnohMJf1lo3QSwMWchf3ExYRyFvudl_PlW9HhVNoN2sc2J7FCUc8xQ9v9OpmVyG-WDmkLKRMYt3Cq5_VAqDvNUE6KvDzupZnAHEZfFx7BmPLzF8-V2XKjeQM77VG3ZiJoUmlUY-Wdvn-PGPGq1d6A318BrRRf1ffPJ07EP8lu5cDB0HTo_NCxmlY2nu2NULK4xOfL1B0yPrZc87dNXTomqOQWukFjyCkgwdAvGvFQh_0000)](https://editor.plantuml.com/uml/VLJlRzem4FsEbF_XngGDfD5AwxT-c0e9CBHsHOHEcZG9cUG87euTsGujc_g_xsm72lsnVFBPzvxlthtuobYcRLqA62UQRt4nODcchXPzdQsvnSpM6gFMExl64g4IZCkePJPSLaop4Z9LLagYjAdT2GHD-KmMWX1HYsLMQMWdk4MXAjHjO0OeScUPK7KExR5Ib0onZwQ2sPNIPHl-HYsWxq0ExP2HPclCQz5G7I9uVysBjHs86jy0pce9dKHb6qgEbRJK1UgkP_49xZoGZ3MYt1VmZAias5cryx0RByGhIKPdPvcIAru4UhzyCpDtal-I7IzzK3v5lUKPXkhyVhFp9eaXdLdXQDAmYWMdmy3GR9rmFBwGwMGGWvgB_4aS7nxaORi0pfbbIsOGsdrj-Og63JCikB4w2BGF_WCykJGzD36EKog1PjLquE90yXE5KFTHwz5Pw0LFqcYPgbfd22CbylsGWxKRbYcN6qVm4UB9UPp0o7EICQ6dUr-EUxw4kUP5WTh0qcziEGDlNH-UxLWfejOHe9SJmQ7pIvZMPeqqnU2yIKaDXfk73vZLbYlPtFxavTw-1EV9em9-goLqlixdKvZUflFpFQ0RjPmL0ynxZK0pPBc1eTnohMJf1lo3QSwMWchf3ExYRyFvudl_PlW9HhVNoN2sc2J7FCUc8xQ9v9OpmVyG-WDmkLKRMYt3Cq5_VAqDvNUE6KvDzupZnAHEZfFx7BmPLzF8-V2XKjeQM77VG3ZiJoUmlUY-Wdvn-PGPGq1d6A318BrRRf1ffPJ07EP8lu5cDB0HTo_NCxmlY2nu2NULK4xOfL1B0yPrZc87dNXTomqOQWukFjyCkgwdAvGvFQh_0000)
 
 ### Google Cloud Build
 
